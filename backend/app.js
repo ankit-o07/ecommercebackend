@@ -242,6 +242,10 @@ app.get('/product/:productId', async (req, res) => {
 app.put('/instock-update', async (req, res) => {
   try {
     const { productId, price, name, category, inStockValue, soldStockValue } = req.body;
+
+    // Debugging log
+    console.log('Received body:', req.body);
+
     // Find and update the product
     const updatedProduct = await Product.findOneAndUpdate(
       { productId: productId }, // Match by productId
@@ -271,7 +275,7 @@ app.put('/instock-update', async (req, res) => {
     });
 
   } catch (error) {
-    // Log the error
+    console.error('Error updating stock status:', error.message); // Log the error
     res.status(500).json({
       success: false,
       message: 'Error updating stock status',
